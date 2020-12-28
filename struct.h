@@ -5,20 +5,25 @@
 #include <string>
 using namespace std;
 
-typedef struct{
+typedef struct Pion{
     int x;
     int y;
     int etat;
 }Pion;
 
-typedef struct{
+typedef struct Element Element;
+struct Element{
     Pion pion;
-    Pion *suivant;
-}ListePion;
+    Element *suivant;
+};
+
+typedef struct{
+    Element *premier;
+}Liste;
 
 typedef struct{
     string nom;
-    Pion *pion;
+    Liste *pion;
     int nbPion;
 }Joueur;
 

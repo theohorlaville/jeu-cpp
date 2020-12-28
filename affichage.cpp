@@ -61,9 +61,9 @@ void draw(SDL_Surface **imageSurface, SDL_Surface **windowSurface, SDL_Rect *img
     Uint32 rouge=SDL_MapRGB(fmt,255,0,0);
     SDL_BlitSurface( *imageSurface, NULL, *windowSurface, img_rect);
     if(tourDeJeu==0){
-        disque(700, 75, 30, blanc, *windowSurface);
+        disque(700, 100, 30, blanc, *windowSurface);
     }else if(tourDeJeu ==1){
-        disque(700, 75, 30, noir, *windowSurface);
+        disque(700, 100, 30, noir, *windowSurface);
     }
     for (int i=0;i<8;i++){
         for(int j=0;j<8;j++){

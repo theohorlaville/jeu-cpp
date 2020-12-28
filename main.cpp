@@ -30,13 +30,13 @@ int main(int argc, char *argv[]){
 
     SDL_Rect txt1_rect;
     txt1_rect.x = 650;
-    txt1_rect.y = 300;
+    txt1_rect.y = 250;
     txt1_rect.w = 100;
     txt1_rect.h = 50;
 
     SDL_Rect txt2_rect;
     txt2_rect.x = 650;
-    txt2_rect.y = 350;
+    txt2_rect.y = 275;
     txt2_rect.w = 100;
     txt2_rect.h = 50;
     
@@ -67,10 +67,14 @@ int main(int argc, char *argv[]){
             if(windowEvent.type == SDL_MOUSEBUTTONDOWN){ //Action qui se déroule quand on clic
                 int caseSelec=retourneCase(windowEvent.button.x, windowEvent.button.y);
                 if(windowEvent.button.x <=600 || windowEvent.button.y<=600){
+                    cout << "x : "<< windowEvent.button.x << " y "<< windowEvent.button.y<< endl;;
                     convertCase(caseSelec, plateau.pion, &tourDeJeu);
                 }
 
-                
+                plateau.joueur1.nbPion=calculScore(plateau.pion,plateau.joueur1.pion,0);
+                plateau.joueur2.nbPion=calculScore(plateau.pion,plateau.joueur2.pion,1);
+                modifyTTF(font, &color, &message, plateau.joueur1.nom+" "+to_string(plateau.joueur1.nbPion)); //Affiche le nom et pk pas le score des joueurs
+                modifyTTF(font, &color, &message2, plateau.joueur2.nom+" "+to_string(plateau.joueur2.nbPion));
                 
             }
         }
