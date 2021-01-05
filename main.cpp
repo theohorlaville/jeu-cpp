@@ -56,6 +56,7 @@ int main(int argc, char *argv[]){
     modifyTTF(font, &color, &message, plateau.joueur1.nom+" "+to_string(plateau.joueur1.nbPion)); //Affiche le nom et pk pas le score des joueurs
     modifyTTF(font, &color, &message2, plateau.joueur2.nom+" "+to_string(plateau.joueur2.nbPion));
     fmt=imageSurface->format;
+    casesJouables(plateau.pion,tourDeJeu);
 
     while(true){
         if(SDL_PollEvent(&windowEvent)){
@@ -63,12 +64,13 @@ int main(int argc, char *argv[]){
                 break;
             }
             
-            casesJouables(plateau.pion,tourDeJeu);
+            
             if(windowEvent.type == SDL_MOUSEBUTTONDOWN){ //Action qui se déroule quand on clic
                 int caseSelec=retourneCase(windowEvent.button.x, windowEvent.button.y);
                 if(windowEvent.button.x <=600 || windowEvent.button.y<=600){
-                    cout << "x : "<< windowEvent.button.x << " y "<< windowEvent.button.y<< endl;;
-                    convertCase(caseSelec, plateau.pion, &tourDeJeu);
+                    //cout << "x : "<< windowEvent.button.x << " y "<< windowEvent.button.y<< endl;;
+                    convertCase(caseSelec, plateau.pion, &tourDeJeu); 
+                    casesJouables(plateau.pion,tourDeJeu);
                 }
 
                 plateau.joueur1.nbPion=calculScore(plateau.pion,plateau.joueur1.pion,0);

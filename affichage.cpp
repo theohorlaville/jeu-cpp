@@ -59,7 +59,8 @@ void draw(SDL_Surface **imageSurface, SDL_Surface **windowSurface, SDL_Rect *img
     Uint32 blanc= SDL_MapRGB(fmt,255,255,255);
     Uint32 noir=SDL_MapRGB(fmt,0,0,0);
     Uint32 rouge=SDL_MapRGB(fmt,255,0,0);
-    SDL_BlitSurface( *imageSurface, NULL, *windowSurface, img_rect);
+    Uint32 couleurFond=SDL_MapRGB(fmt,214, 231, 242);
+    
     if(tourDeJeu==0){
         disque(700, 100, 30, blanc, *windowSurface);
     }else if(tourDeJeu ==1){
@@ -74,13 +75,17 @@ void draw(SDL_Surface **imageSurface, SDL_Surface **windowSurface, SDL_Rect *img
                 
             }else if(pion[i][j].etat==3){
                 disque(pion[i][j].x, pion[i][j].y, 30, rouge, *imageSurface);
+
+            }else if(pion[i][j].etat==2){
+                disque(pion[i][j].x, pion[i][j].y, 30, couleurFond, *imageSurface);
             }
         }
     }
     
-    
+    SDL_BlitSurface( *imageSurface, NULL, *windowSurface, img_rect); 
     SDL_BlitSurface( *message, NULL, *windowSurface, txt1_rect);
-    SDL_BlitSurface( *message2, NULL, *windowSurface, txt2_rect); 
+    SDL_BlitSurface( *message2, NULL, *windowSurface, txt2_rect);
+    
     SDL_UpdateWindowSurface(*window);
 }
 
