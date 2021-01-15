@@ -61,6 +61,8 @@ void draw(SDL_Surface **imageSurface, SDL_Surface **windowSurface, SDL_Rect *img
     Uint32 rouge=SDL_MapRGB(fmt,255,0,0);
     Uint32 couleurFond=SDL_MapRGB(fmt,214, 231, 242);
     
+    SDL_BlitSurface( *imageSurface, NULL, *windowSurface, img_rect); 
+
     if(tourDeJeu==0){
         disque(700, 100, 30, blanc, *windowSurface);
     }else if(tourDeJeu ==1){
@@ -82,7 +84,7 @@ void draw(SDL_Surface **imageSurface, SDL_Surface **windowSurface, SDL_Rect *img
         }
     }
     
-    SDL_BlitSurface( *imageSurface, NULL, *windowSurface, img_rect); 
+    
     SDL_BlitSurface( *message, NULL, *windowSurface, txt1_rect);
     SDL_BlitSurface( *message2, NULL, *windowSurface, txt2_rect);
     

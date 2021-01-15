@@ -4,6 +4,7 @@
 using namespace std;
 
 
+
 Liste* initialisationListe(){
     Liste* liste=(Liste*)malloc(sizeof(*liste));
     Element* elem=(Element*)malloc(sizeof(*elem));
@@ -58,7 +59,6 @@ int calculScore(Pion pion[][8], Liste *lst, int etat){
 
 
 
-
 void initPlateau(Plateau *plateau){
     //Saisie des noms par l'utilisateur
     cout <<"Entrez le nom d'un joueur : ";
@@ -86,29 +86,27 @@ void initPlateau(Plateau *plateau){
     //On calcule le nombre de pion par joueur
     plateau->joueur1.pion=initialisationListe();
     plateau->joueur2.pion=initialisationListe();
-
     plateau->joueur1.nbPion=calculScore(plateau->pion, plateau->joueur1.pion,0);
     plateau->joueur2.nbPion=calculScore(plateau->pion, plateau->joueur2.pion,1);
 }
 
 
-//pose un pion sur la case que laquelle on a clique
-void convertCase(int caseSelec, Pion pion[][8], int *tourDeJeu){
+//pose un pion sur la case que laquelle on a clique, on change de joueur et on vide les cases jouables
+int convertCase(int caseSelec, Pion pion[][8], int *tourDeJeu){
     int j=caseSelec/8;
-    cout << "pion "<< caseSelec-(8*j) << " "<< j<< " cliqué etat : "<< pion[caseSelec-(8*j)][j].etat<< endl;
-    if(pion[caseSelec-(8*j)][j].etat==3){
-        pion[caseSelec-(8*j)][j].etat=*tourDeJeu;
-
-        if(*tourDeJeu==0){
-            *tourDeJeu=1;
-        }
-        else{
-            *tourDeJeu=0;
-        }
+    int i=caseSelec-(8*j);
+    if(pion[i][j].etat==3){
+        pion[i][j].etat=*tourDeJeu;
+        recupJeton(pion, i, j, *tourDeJeu);
+        *tourDeJeu=(*tourDeJeu+1)%2;
+        
         videCasesJouables(pion);
+        return 1;
     }
+    return 0;
 }
 
+//Parcours le tableau afin de vider les cases précédemment jouables
 void videCasesJouables(Pion pion[][8]){
     for(int i=0; i<8; i++){
         for(int j=0; j<8; j++){
@@ -120,99 +118,203 @@ void videCasesJouables(Pion pion[][8]){
 }
 
 
-void casesJouables(Pion pion[][8], int tourDeJeu){   
+int casesJouables(Pion pion[][8], int tourDeJeu){   
+    int retour=1;
     for (int i=0; i<8;i++){
         for(int j=0;j<8;j++){
             if(pion[i][j].etat==tourDeJeu){
                
                 int k=1;
-                while(pion[i-k][j].etat==(tourDeJeu+1)%2 && i>0){
+                while(pion[i-k][j].etat==(tourDeJeu+1)%2 && i-k>=0){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && i-k>=0){
                     if(pion[i-k][j].etat==2){
                         pion[i-k][j].etat=3;
+                        retour=0;
                     }
                 }
                 
                 k=1;
 
-                while(pion[i-k][j+k].etat==((tourDeJeu+1)%2) && i>0 && j<8){
+                while(pion[i-k][j+k].etat==((tourDeJeu+1)%2) && i-k>=0 && j+k<8){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && i-k>=0 && j+k<8){
                     if(pion[i-k][j+k].etat==2){
                         pion[i-k][j+k].etat=3;
+                        retour=0;
                     }
                 }
                 k=1;
 
-                while(pion[i][j+k].etat==(tourDeJeu+1)%2 && j<8){
+                while(pion[i][j+k].etat==(tourDeJeu+1)%2 && j+k<8){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && j+k<8){
                     if(pion[i][j+k].etat==2){
                         pion[i][j+k].etat=3;
+                        retour=0;
                     }
                 }
                 
                 k=1;
 
-                while(pion[i+k][j+k].etat==(tourDeJeu+1)%2 && i<8 && j<8){
+                while(pion[i+k][j+k].etat==(tourDeJeu+1)%2 && i+k<8 && j+k<8){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && i+k<8 && j+k<8){
                     if(pion[i+k][j+k].etat==2){
                         pion[i+k][j+k].etat=3;
+                        retour=0;
                     }
                 k=1;
                 }
                 
 
-                while(pion[i+k][j].etat==(tourDeJeu+1)%2 && i<8){
+                while(pion[i+k][j].etat==(tourDeJeu+1)%2 && i+k<8){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && i+k<8){
                     if(pion[i+k][j].etat==2){
                         pion[i+k][j].etat=3;
+                        retour=0;
                     }
                 }
                 
                 k=1;
 
-                while(pion[i+k][j-k].etat==(tourDeJeu+1)%2 && i<8 && j>0){
+                while(pion[i+k][j-k].etat==(tourDeJeu+1)%2 && i+k<8 && j-k>=0){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && i+k<8 && j-k>=0){
                     if(pion[i+k][j-k].etat==2){
                         pion[i+k][j-k].etat=3;
+                        retour=0;
                     }
                 }
                 
                 k=1;
 
-                while(pion[i][j-k].etat==(tourDeJeu+1)%2 && j>0){
+                while(pion[i][j-k].etat==(tourDeJeu+1)%2 && j-k>=0){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && j-k>=0){
                     if(pion[i][j-k].etat==2){
                         pion[i][j-k].etat=3;
+                        retour=0;
                     }
                 }
                 
                 k=1;
 
-                while(pion[i-k][j-k].etat==(tourDeJeu+1)%2 && i>0 && j>0){
+                while(pion[i-k][j-k].etat==(tourDeJeu+1)%2 && i-k>=0 && j-k>=0){
                     k++;
                 }
-                if(k!=1){
+                if(k!=1 && i-k>=0 && j-k>=0){
                     if(pion[i-k][j-k].etat==2){
                         pion[i-k][j-k].etat=3;
+                        retour=0;
                     }
                 }
                 
             }
         }
     }
+    return retour;
 }
 
+void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
+    
+
+    int k=1;
+                while(pion[i-k][j].etat==(tourDeJeu+1)%2 && i-k>=0){
+                    k++;
+                }
+                
+                if(k!=1 && i-k>=0 && pion[i-k][j].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                        pion[i-k][j].etat=tourDeJeu;
+                    }
+                }
+                
+                k=1;
+
+                while(pion[i-k][j+k].etat==((tourDeJeu+1)%2) && i-k>=0 && j+k<8){
+                    k++;
+                }
+                if(k!=1 && i-k>=0 && j+k<8 && pion[i-k][j+k].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                        pion[i-k][j+k].etat=tourDeJeu;
+                    }
+                }
+                k=1;
+
+                while(pion[i][j+k].etat==(tourDeJeu+1)%2 && j+k<8){
+                    k++;
+                }
+                if(k!=1 && j+k<8 && pion[i][j+k].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                         pion[i][j+k].etat=tourDeJeu;
+                    }
+                }
+                       
+                
+                
+                k=1;
+
+                while(pion[i+k][j+k].etat==(tourDeJeu+1)%2 && i+k<8 && j+k<8){
+                    k++;
+                }
+                if(k!=1 && i+k<8 && j+k<8 && pion[i+k][j+k].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                         pion[i+k][j+k].etat=tourDeJeu;
+                    }
+                k=1;
+                }
+                
+
+                while(pion[i+k][j].etat==(tourDeJeu+1)%2 && i+k<8){
+                    k++;
+                }
+                if(k!=1 && i+k<8 && pion[i+k][j].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                        pion[i+k][j].etat=tourDeJeu;
+                    }
+                }
+                
+                k=1;
+
+                while(pion[i+k][j-k].etat==(tourDeJeu+1)%2 && i+k<8 && j-k>=0){
+                    k++;
+                }
+                if(k!=1 && i+k<8 && j-k>=0 && pion[i+k][j-k].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                        pion[i+k][j-k].etat=tourDeJeu;
+                    }
+                }
+                
+                k=1;
+
+                while(pion[i][j-k].etat==(tourDeJeu+1)%2 && j-k>=0){
+                    k++;
+                }
+                if(k!=1 && j-k>=0 && pion[i][j-k].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                        pion[i][j-k].etat=tourDeJeu;
+                    }
+                }
+                
+                k=1;
+
+                while(pion[i-k][j-k].etat==(tourDeJeu+1)%2 && i-k>=0 && j-k>=0){
+                    k++;
+                }
+                if(k!=1 && i-k>=0 && j-k>=0 && pion[i-k][j-k].etat==tourDeJeu){
+                    for(k; k>=1; k--){
+                        pion[i-k][j-k].etat=tourDeJeu;
+                    }
+                        
+
+                }
+}

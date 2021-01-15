@@ -15,6 +15,9 @@ using namespace std;
 int main(int argc, char *argv[]){
     Plateau plateau;
     int tourDeJeu=0;
+    int finPartie=0;
+    int caseJoue=0;
+    int caseSelec;
     initPlateau(&plateau);
     
     //Toutes les variables necessaire a la gestion de l'affichage
@@ -66,11 +69,28 @@ int main(int argc, char *argv[]){
             
             
             if(windowEvent.type == SDL_MOUSEBUTTONDOWN){ //Action qui se déroule quand on clic
-                int caseSelec=retourneCase(windowEvent.button.x, windowEvent.button.y);
+                
                 if(windowEvent.button.x <=600 || windowEvent.button.y<=600){
-                    //cout << "x : "<< windowEvent.button.x << " y "<< windowEvent.button.y<< endl;;
-                    convertCase(caseSelec, plateau.pion, &tourDeJeu); 
-                    casesJouables(plateau.pion,tourDeJeu);
+                    caseSelec=retourneCase(windowEvent.button.x, windowEvent.button.y);
+                    caseJoue=convertCase(caseSelec, plateau.pion, &tourDeJeu);
+                    if(caseJoue==1){
+                        finPartie+=casesJouables(plateau.pion,tourDeJeu);
+                    if(finPartie==1){
+                        if(tourDeJeu==0){
+                            cout << "aucun coup jouable pour "<< plateau.joueur1.nom<< endl;
+                        }else if (tourDeJeu==1){
+                            cout << "aucun coup jouable pour "<< plateau.joueur2.nom<< endl;
+                        }
+                        tourDeJeu= (tourDeJeu+1)%2;
+                        finPartie+=casesJouables(plateau.pion,tourDeJeu);
+                        if(finPartie==2){
+                            cout<< "fin de partie"<< endl;
+                        }                       
+                    }
+                    finPartie=0;
+                    }
+                    
+
                 }
 
                 plateau.joueur1.nbPion=calculScore(plateau.pion,plateau.joueur1.pion,0);
