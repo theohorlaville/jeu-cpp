@@ -83,10 +83,10 @@ int main(int argc, char *argv[]){
                             if(finPartie==2){
                                 cout<< "Partie terminée "<< endl;
                                 if (plateau.joueur1.nbPion<plateau.joueur2.nbPion){
-                                    cout<< "Le vainqueur de la partie est " << plateau.joueur2.nom<<" avec un score de "<<<plateau.joueur2.nbPion<endl;
+                                    cout<< "Le vainqueur de la partie est " << plateau.joueur2.nom<<" avec un score de "<<plateau.joueur2.nbPion<<endl;
                                 }
                                 else
-                                    cout<< "Le vainqueur de la partie est " << plateau.joueur1.nom<<" avec un score de "<<<plateau.joueur1.nbPion<<endl;
+                                    cout<< "Le vainqueur de la partie est " << plateau.joueur1.nom<<" avec un score de "<<plateau.joueur1.nbPion<<endl;
 
                             }                       
                         }
