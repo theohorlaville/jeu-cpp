@@ -9,9 +9,6 @@
 using namespace std;
 
 
-
-
-
 int main(int argc, char *argv[]){
     Plateau plateau;
     int tourDeJeu=0;
@@ -74,20 +71,26 @@ int main(int argc, char *argv[]){
                     caseSelec=retourneCase(windowEvent.button.x, windowEvent.button.y);
                     caseJoue=convertCase(caseSelec, plateau.pion, &tourDeJeu);
                     if(caseJoue==1){
-                        finPartie+=casesJouables(plateau.pion,tourDeJeu);
-                    if(finPartie==1){
-                        if(tourDeJeu==0){
-                            cout << "aucun coup jouable pour "<< plateau.joueur1.nom<< endl;
-                        }else if (tourDeJeu==1){
-                            cout << "aucun coup jouable pour "<< plateau.joueur2.nom<< endl;
+                            finPartie+=casesJouables(plateau.pion,tourDeJeu);
+                            if(finPartie==1){
+                            if(tourDeJeu==0){
+                                cout << "aucun coup jouable pour "<< plateau.joueur1.nom<< endl;
+                            }else if (tourDeJeu==1){
+                                cout << "aucun coup jouable pour "<< plateau.joueur2.nom<< endl;
+                            }
+                            tourDeJeu= (tourDeJeu+1)%2;
+                            finPartie+=casesJouables(plateau.pion,tourDeJeu);
+                            if(finPartie==2){
+                                cout<< "Partie terminée "<< endl;
+                                if (plateau.joueur1.nbPion<plateau.joueur2.nbPion){
+                                    cout<< "Le vainqueur de la partie est " << plateau.joueur2.nom<<" avec un score de "<<<plateau.joueur2.nbPion<endl;
+                                }
+                                else
+                                    cout<< "Le vainqueur de la partie est " << plateau.joueur1.nom<<" avec un score de "<<<plateau.joueur1.nbPion<<endl;
+
+                            }                       
                         }
-                        tourDeJeu= (tourDeJeu+1)%2;
-                        finPartie+=casesJouables(plateau.pion,tourDeJeu);
-                        if(finPartie==2){
-                            cout<< "fin de partie"<< endl;
-                        }                       
-                    }
-                    finPartie=0;
+                        finPartie=0;
                     }
                     
 
