@@ -86,9 +86,11 @@ int main(int argc, char *argv[]){
                                 plateau.joueur1.nbPion=calculScore(plateau.pion,plateau.joueur1.pion,0);
                                 if (plateau.joueur1.nbPion<plateau.joueur2.nbPion){    
                                     cout<< "Le vainqueur de la partie est " << plateau.joueur2.nom<<" avec un score de "<<plateau.joueur2.nbPion<<endl;
+                                    cout<< plateau.joueur1.nom<<" perd la partie avec un score de "<<plateau.joueur1.nbPion<<endl;
                                 }
                                 else{    
                                     cout<< "Le vainqueur de la partie est " << plateau.joueur1.nom<<" avec un score de "<<plateau.joueur1.nbPion<<endl;
+                                    cout<< plateau.joueur2.nom<<" perd la partie avec un score de "<<plateau.joueur2.nbPion<<endl;
                                 }
 
                             }                       
