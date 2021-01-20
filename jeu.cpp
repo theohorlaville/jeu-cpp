@@ -46,9 +46,12 @@ Liste* remplirListe(Pion pion[][8], Liste *lst, int etat){
 
 int scoreJoueur(Element *lst){
     int score=0;
+    Element *liste;
     while (lst!=NULL){
         score++;
-        lst=lst->suivant;
+        liste=lst->suivant;
+        free(lst);
+        lst=liste;
     }
     return score;
 }
