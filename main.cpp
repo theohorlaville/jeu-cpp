@@ -82,13 +82,14 @@ int main(int argc, char *argv[]){
                             finPartie+=casesJouables(plateau.pion,tourDeJeu);
                             if(finPartie==2){
                                 cout<< "Partie terminée "<< endl;
-                                if (plateau.joueur1.nbPion<plateau.joueur2.nbPion){
-                                    plateau.joueur2.nbPion=calculScore(plateau.pion,plateau.joueur2.pion,1);
+                                plateau.joueur2.nbPion=calculScore(plateau.pion,plateau.joueur2.pion,1);
+                                plateau.joueur1.nbPion=calculScore(plateau.pion,plateau.joueur1.pion,0);
+                                if (plateau.joueur1.nbPion<plateau.joueur2.nbPion){    
                                     cout<< "Le vainqueur de la partie est " << plateau.joueur2.nom<<" avec un score de "<<plateau.joueur2.nbPion<<endl;
                                 }
-                                else
-                                    plateau.joueur1.nbPion=calculScore(plateau.pion,plateau.joueur1.pion,0);
+                                else{    
                                     cout<< "Le vainqueur de la partie est " << plateau.joueur1.nom<<" avec un score de "<<plateau.joueur1.nbPion<<endl;
+                                }
 
                             }                       
                         }
