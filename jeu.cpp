@@ -4,7 +4,7 @@
 using namespace std;
 
 
-
+//On initialise la liste de jeton appartenant a un joueur
 Liste* initialisationListe(){
     Liste* liste=(Liste*)malloc(sizeof(*liste));
     Element* elem=(Element*)malloc(sizeof(*elem));
@@ -19,6 +19,7 @@ Liste* initialisationListe(){
     return liste;
 }
 
+//On ajoute le pion a la liste 
 void ajoutePion(Liste *lst, Pion *pion){
     Element *newElem=(Element*)malloc(sizeof(*newElem));
     if(lst==NULL || newElem==NULL){
@@ -32,6 +33,7 @@ void ajoutePion(Liste *lst, Pion *pion){
     
 }
 
+//On parcour le tableau de pion et on ajoute chaque pion du joueur à la liste 
 Liste* remplirListe(Pion pion[][8], Liste *lst, int etat){
     lst->premier=NULL;
     for(int i=0; i<8; i++){
@@ -44,6 +46,7 @@ Liste* remplirListe(Pion pion[][8], Liste *lst, int etat){
     return lst;
 }
 
+//On parcour chaque element de la liste pour connaitre le score du joueur 
 int scoreJoueur(Element *lst){
     int score=0;
     Element *liste;
@@ -61,7 +64,7 @@ int calculScore(Pion pion[][8], Liste *lst, int etat){
 }
 
 
-
+//initialise le plateau de jeu en début de partie 
 void initPlateau(Plateau *plateau){
     //Saisie des noms par l'utilisateur
     cout <<"Entrez le nom d'un joueur : ";
@@ -120,7 +123,7 @@ void videCasesJouables(Pion pion[][8]){
     }
 }
 
-
+//Parcours les environs de chaque pions de la couleur du joueur pour connaitre les coups jouables
 int casesJouables(Pion pion[][8], int tourDeJeu){   
     int retour=1;
     for (int i=0; i<8;i++){
@@ -227,6 +230,7 @@ int casesJouables(Pion pion[][8], int tourDeJeu){
     return retour;
 }
 
+//Parcour les cases autour du pion qui vient d'être posé afin de récuperer ceux qui sont entre ce pion et ceux précédement posés
 void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
     
 
