@@ -240,8 +240,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                 }
                 
                 if(k!=1 && i-k>=0 && pion[i-k][j].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                         pion[i-k][j].etat=tourDeJeu;
+                        k--;
                     }
                 }
                 
@@ -251,8 +252,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && i-k>=0 && j+k<8 && pion[i-k][j+k].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                         pion[i-k][j+k].etat=tourDeJeu;
+                        k--;
                     }
                 }
                 k=1;
@@ -261,8 +263,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && j+k<8 && pion[i][j+k].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                          pion[i][j+k].etat=tourDeJeu;
+                         k--;
                     }
                 }
                        
@@ -274,8 +277,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && i+k<8 && j+k<8 && pion[i+k][j+k].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                          pion[i+k][j+k].etat=tourDeJeu;
+                         k--;
                     }
                 k=1;
                 }
@@ -285,8 +289,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && i+k<8 && pion[i+k][j].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                         pion[i+k][j].etat=tourDeJeu;
+                        k--;
                     }
                 }
                 
@@ -296,8 +301,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && i+k<8 && j-k>=0 && pion[i+k][j-k].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                         pion[i+k][j-k].etat=tourDeJeu;
+                        k--;
                     }
                 }
                 
@@ -307,8 +313,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && j-k>=0 && pion[i][j-k].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                         pion[i][j-k].etat=tourDeJeu;
+                        k--;
                     }
                 }
                 
@@ -318,8 +325,9 @@ void recupJeton(Pion pion[][8], int i, int j, int tourDeJeu){
                     k++;
                 }
                 if(k!=1 && i-k>=0 && j-k>=0 && pion[i-k][j-k].etat==tourDeJeu){
-                    for(k; k>=1; k--){
+                    while(k>=1){
                         pion[i-k][j-k].etat=tourDeJeu;
+                        k--;
                     }
                         
 
